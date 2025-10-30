@@ -3,17 +3,17 @@ const express = require("express"); //colocou uma biblioteca dentro da variavel
 const { Client } = require("pg"); //puxou somente uma parte da biblioteca
 const cors = require("cors");
 const bodyparser = require("body-parser");
-const dotenv = require('dotenv');
+const config=require('.config')
+
 
 //inicialização de variavel
 const app = express();
 app.use(express.json());
 app.use(cors());
 app.use(bodyparser.json());
-dotenv.config();
 
 //definição de conexão
-const connectionString = process.env.DATABASE_URL
+const connectionString = config.DATABASE_URL
 const client = new Client(connectionString);
 
 //rota para chamar apenas 1 usuario
@@ -177,8 +177,8 @@ app.get("/", (req, res) => {
 });
 
 //ler as rotas(deve ser o ultimo comando)
-app.listen(process.env.PORT, () =>
-    console.log("Servidor funcionando na porta " + process.env.PORT)
+app.listen(config.PORT, () =>
+    console.log("Servidor funcionando na porta " + config.PORT)
 );
 
 module.exports = app
